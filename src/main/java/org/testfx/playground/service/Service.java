@@ -1,26 +1,23 @@
 package org.testfx.playground.service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.List;
-
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 import org.testfx.playground.model.Player;
 import org.testfx.playground.model.Team;
 
-import com.fasterxml.jackson.databind.JavaType;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.CollectionType;
-import com.fasterxml.jackson.databind.type.SimpleType;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.List;
 
 @Component
 public class Service {
 
 	private final ObjectMapper mapper = new ObjectMapper();
 
-	private final JavaType playerList = CollectionType.construct(List.class, SimpleType.construct(Player.class));
+	private final TypeReference<List<Player>> playerList = new TypeReference<List<Player>>() {};
 
-	private final JavaType teamList = CollectionType.construct(List.class, SimpleType.construct(Team.class));
+	private final TypeReference<List<Team>> teamList = new TypeReference<List<Team>>() {};
 
 	public List<Player> loadMorePlayers() {
 		return loadFile("/data/players_more.json", playerList);
@@ -38,10 +35,10 @@ public class Service {
 		return loadFile("/data/teams.json", teamList);
 	}
 
-	private <T> T loadFile(String filePath, JavaType javaType) {
+	private <T> T loadFile(String filePath, TypeReference<T> typeReference) {
 		try {
 			final InputStream is = getClass().getResourceAsStream(filePath);
-			return mapper.readValue(is, javaType);
+			return mapper.readValue(is, typeReference);
 		} catch (IOException e) {
 			throw new RuntimeException("Failed to parse file: " + filePath, e);
 		}
