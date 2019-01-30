@@ -19,7 +19,7 @@ public abstract class ClientApplicationIT extends ApplicationTest {
 
 	@Before
 	public void setUp() {
-		playerTable = lookup("#playerTable").queryFirst();
+		playerTable = lookup("#playerTable").queryTableView();
 	}
 
 	@Override

@@ -2,7 +2,7 @@
 
 | Technology  | Description |
 | ----------- | ----------- |
-| JavaFX 8    | Desktop client development platform |
+| JavaFX 11   | Desktop client development platform |
 | Spring Boot | Dependency injection and libraries |
 | TestFX      | Testing JavaFX applications |
 | Maven       | Dependency management and build tool |
