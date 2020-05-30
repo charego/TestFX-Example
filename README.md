@@ -12,7 +12,7 @@
 
 ### Run program
 
-`mvn spring-boot:run`
+`mvn javafx:run`
 
 ### Run tests
 
